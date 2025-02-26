@@ -1,5 +1,5 @@
-const fs = require("fs").promises;
-const path = require("path");
+import { promises as fs } from "fs";
+import { join, relative } from "path";
 
 // Define the ancestor folders to compare
 const ancestorFolders = [
@@ -15,7 +15,7 @@ async function findJsonFiles(dir) {
   try {
     const files = await fs.readdir(dir);
     for (const file of files) {
-      const filePath = path.join(dir, file);
+      const filePath = join(dir, file);
       const stat = await fs.stat(filePath);
 
       if (stat.isDirectory()) {
@@ -65,7 +65,7 @@ async function compareAncestorFolders() {
     const fileMap = new Map();
     for (const { folder, jsonFiles } of jsonFilesByFolder) {
       for (const filePath of jsonFiles) {
-        const relativePath = path.relative(folder, filePath);
+        const relativePath = relative(folder, filePath);
         if (!fileMap.has(relativePath)) {
           fileMap.set(relativePath, []);
         }

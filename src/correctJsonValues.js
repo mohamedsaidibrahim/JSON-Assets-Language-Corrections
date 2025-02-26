@@ -1,24 +1,46 @@
-
-const correctString = require("./correctString");
+import { correctString } from './correctString.js';
 
 // Recursively correct values in JSON object
 export function correctJsonValues(obj, corrections) {
     let modified = false;
-  
+
     for (const key in obj) {
-      if (typeof obj[key] === "string") {
-        // Correct only string values
-        const correctedValue = correctString(obj[key], corrections);
-        if (correctedValue !== obj[key]) {
-          obj[key] = correctedValue;
-          modified = true;
+        if (typeof obj[key] === 'string') {
+            // Correct only string values
+            const correctedValue = correctString(obj[key], corrections);
+            if (correctedValue !== obj[key]) {
+                obj[key] = correctedValue;
+                modified = true;
+            }
+        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            // Recursively process nested objects or arrays
+            const nestedModified = correctJsonValues(obj[key], corrections);
+            modified = modified || nestedModified;
         }
-      } else if (typeof obj[key] === "object" && obj[key] !== null) {
-        // Recursively process nested objects or arrays
-        const nestedModified = correctJsonValues(obj[key], corrections);
-        modified = modified || nestedModified;
-      }
     }
-  
+
     return modified;
-  }
+}
+// const correctString = require("./correctString");
+
+// // Recursively correct values in JSON object
+// export function correctJsonValues(obj, corrections) {
+//     let modified = false;
+  
+//     for (const key in obj) {
+//       if (typeof obj[key] === "string") {
+//         // Correct only string values
+//         const correctedValue = correctString(obj[key], corrections);
+//         if (correctedValue !== obj[key]) {
+//           obj[key] = correctedValue;
+//           modified = true;
+//         }
+//       } else if (typeof obj[key] === "object" && obj[key] !== null) {
+//         // Recursively process nested objects or arrays
+//         const nestedModified = correctJsonValues(obj[key], corrections);
+//         modified = modified || nestedModified;
+//       }
+//     }
+  
+//     return modified;
+//   }

@@ -4,8 +4,8 @@ import {processJsonFiles} from "./src/processJsonFiles.js";
 const rootDir = "D:\\Erp\\Langs";
 
 const csvFiles = {
-    ar: join(__dirname, "reference", "ar.csv"),
-    en: join(__dirname, "reference", "en.csv"),
+    ar: join(process.cwd(), "reference", "ar.csv"),
+    en: join(process.cwd(), "reference", "en.csv"),
   };
 
 
