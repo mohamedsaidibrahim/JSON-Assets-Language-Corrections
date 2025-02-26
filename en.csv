@@ -1,0 +1,46 @@
+Wrong,Correct
+Configration,Configuration
+Tilte,Title
+ConfirmButtonTexttodelete,ConfirmButtonTextToDelete
+ConfirmButtonTexttochangstatus,ConfirmButtonTextToChangeStatus
+Succefully,Successfully
+InviationSent,InvitationSent
+BoUserDetails,BoUserDetail
+Subdomain,Subdomain
+PlatformPlan,Platform Plan
+submit,Submit
+UserUpdated,User Updated
+Contanct,Contact
+contactPersonal,Contact Person
+contactPersonalPosition,Contact Person Position
+contactPersonalEmail,Contact Person Email
+companyEmail,Company Email
+companyAddress,Company Address
+organizationUnit,Organizational Unit
+organization,Organization
+businessCategory,Business Category
+citySubDivisionName,City Subdivision Name
+postalZone,Postal Zone
+countrySubEntity,Country Sub-Entity
+error,Error
+print,Print
+glAccount,GL Account
+ParentIsDeactivated,Parent Is Deactivated
+ConfirmButtonTexttodelete,ConfirmButtonTextToDelete
+ConfirmButtonTexttochangstatus,ConfirmButtonTextToChangeStatus
+InviationSent,InvitationSent
+BoUserDetails,UserDetails
+AccInfo,AccountInfo
+MobileNumberCode,MobileCountryCode
+contactPersonal,ContactPerson
+contactPersonalPosition,ContactPersonPosition
+contactPersonalEmail,ContactPersonEmail
+companyEmail,CompanyEmail
+companyAddress,CompanyAddress
+organizationUnit,OrganizationalUnit
+journalEntryDate,JournalEntryDate
+glAccount,GLAccount
+periodicActiveFrom,PeriodicActivationStart
+periodicActiveTo,PeriodicActivationEnd
+noData,NoData
+clickToUpload,ClickToUpload
