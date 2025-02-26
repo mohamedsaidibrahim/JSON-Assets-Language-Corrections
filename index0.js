@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const csv = require("csv-parser");
 
-const rootDir = "C:\\Users\\Microtec-Web\\Desktop\\26022025\\Langs";
+const rootDir = "C:\\Users\\Microtec-Web\\Desktop\\26022025\\TEST\\Langs1";
 const csvFiles = {
   ar: path.join(__dirname, "ar.csv"),
   en: path.join(__dirname, "en.csv"),

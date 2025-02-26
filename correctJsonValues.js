@@ -3,7 +3,7 @@ const fsp = require("fs").promises; // Use fs.promises for other async operation
 const path = require("path");
 const csv = require("csv-parser");
 
-const rootDir = "C:\\Users\\Microtec-Web\\Desktop\\26022025\\Langs";
+const rootDir = "C:\\Users\\Microtec-Web\\Desktop\\26022025\\TEST\\Langs3";
 const csvFiles = {
   ar: path.join(__dirname, "ar.csv"),
   en: path.join(__dirname, "en.csv"),
@@ -57,12 +57,30 @@ async function findJsonFiles(dir) {
   return jsonFiles;
 }
 
-// Replace words in JSON content
-function correctJsonContent(jsonContent, corrections) {
+// Recursively correct values in JSON object
+function correctJsonValues(obj, corrections) {
   let modified = false;
-  let jsonString = JSON.stringify(jsonContent, null, 2);
 
-  // Match full words (Arabic & English) with special character support
+  for (const key in obj) {
+    if (typeof obj[key] === "string") {
+      // Correct only string values
+      const correctedValue = correctString(obj[key], corrections);
+      if (correctedValue !== obj[key]) {
+        obj[key] = correctedValue;
+        modified = true;
+      }
+    } else if (typeof obj[key] === "object" && obj[key] !== null) {
+      // Recursively process nested objects or arrays
+      const nestedModified = correctJsonValues(obj[key], corrections);
+      modified = modified || nestedModified;
+    }
+  }
+
+  return modified;
+}
+
+// Correct a single string using the corrections map
+function correctString(str, corrections) {
   const regex = new RegExp(
     `\\b(${Array.from(corrections.keys())
       .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) // Escape special characters
@@ -70,15 +88,7 @@ function correctJsonContent(jsonContent, corrections) {
     "g"
   );
 
-  jsonString = jsonString.replace(regex, (match) => {
-    if (corrections.has(match)) {
-      modified = true;
-      return corrections.get(match);
-    }
-    return match;
-  });
-
-  return { correctedJson: jsonString, modified };
+  return str.replace(regex, (match) => corrections.get(match) || match);
 }
 
 // Process JSON files
@@ -100,12 +110,14 @@ async function processJsonFiles() {
       const corrections = isArabic ? arCorrections : enCorrections;
 
       try {
-        let jsonContent = JSON.parse(await fsp.readFile(filePath, "utf-8"));
+        const fileContent = await fsp.readFile(filePath, "utf-8");
+        const jsonContent = JSON.parse(fileContent);
 
-        const { correctedJson, modified } = correctJsonContent(jsonContent, corrections);
+        // Correct values in the JSON object
+        const modified = correctJsonValues(jsonContent, corrections);
 
         if (modified) {
-          await fsp.writeFile(filePath, correctedJson, "utf-8");
+          await fsp.writeFile(filePath, JSON.stringify(jsonContent, null, 2), "utf-8");
           console.log(`✅ Corrected file saved: ${filePath}`);
         } else {
           console.log(`ℹ️ No corrections needed: ${filePath}`);
