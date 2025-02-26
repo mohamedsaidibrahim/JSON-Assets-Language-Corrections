@@ -1,8 +1,19 @@
 {
-  "type": "module",
-  "dependencies": {
-    "csv-parser": "^3.2.0",
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7"
-  }
+"name": "Language Correction Tool",
+"description": "This project is a JavaScript application designed to correct language-specific errors in JSON files. It processes JSON files stored in nested directories, identifies language-specific errors using reference CSV files (one for Arabic and one for English), and replaces incorrect words with their correct counterparts. The corrected JSON files are saved in their original locations, and the tool logs the changes made.",
+"version": "1.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "license":"Apache-2.0",
+  "author": {
+    "name": "Mohamed Said Ibrahim",
+    "email": "muhammedsaidsyed215@gmail.com"},
+  "main": "index.js",
+    "type": "module",
+    "dependencies": {
+      "csv-parser": "^3.2.0",
+      "fs": "^0.0.1-security",
+      "path": "^0.12.7"
+    }
 }
