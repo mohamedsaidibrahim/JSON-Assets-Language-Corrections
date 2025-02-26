@@ -3,10 +3,10 @@ const fsp = require("fs").promises; // Use fs.promises for other async operation
 const path = require("path");
 const csv = require("csv-parser");
 
-const rootDir = "C:\\Users\\Microtec-Web\\Desktop\\26022025\\TEST\\Langs3";
+const rootDir = "D:\\Erp\\Langs";
 const csvFiles = {
-  ar: path.join(__dirname, "ar.csv"),
-  en: path.join(__dirname, "en.csv"),
+  ar: path.join(__dirname, "reference", "ar.csv"),
+  en: path.join(__dirname, "reference", "en.csv"),
 };
 
 // Load corrections from CSV (First column = "Wrong", Last column = "Correct")
@@ -117,13 +117,19 @@ async function processJsonFiles() {
         const modified = correctJsonValues(jsonContent, corrections);
 
         if (modified) {
-          await fsp.writeFile(filePath, JSON.stringify(jsonContent, null, 2), "utf-8");
+          await fsp.writeFile(
+            filePath,
+            JSON.stringify(jsonContent, null, 2),
+            "utf-8"
+          );
           console.log(`✅ Corrected file saved: ${filePath}`);
         } else {
           console.log(`ℹ️ No corrections needed: ${filePath}`);
         }
       } catch (err) {
-        console.error(`❌ Failed to process JSON file: ${filePath} - ${err.message}`);
+        console.error(
+          `❌ Failed to process JSON file: ${filePath} - ${err.message}`
+        );
       }
     }
   } catch (err) {
